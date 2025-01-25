@@ -5,6 +5,7 @@ public class RangerAttack : MonoBehaviour, IAttack
     public Transform shootPoint;
     public float projectileSpeed = 20f;
     public float attackCooldown;
+    private Enemy enemy;
 
     private float lastAttackTime;
     public void Attack(int damage)
@@ -13,18 +14,10 @@ public class RangerAttack : MonoBehaviour, IAttack
 
         if (Time.time - lastAttackTime >= attackCooldown)
         {
-            //GameObject projectile = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
             GameObject projectile = BulletsPool.Instance.RequestBullet();
             projectile.transform.position = shootPoint.position;
-            projectile.transform.rotation = shootPoint.rotation;    
-
-            // Obtener el Rigidbody del proyectil para aplicar velocidad
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-                rb.linearVelocity = shootPoint.forward * projectileSpeed;
-            }
+            Vector3 direction = transform.position - enemy.player.position;
+            projectile.transform.forward = -direction;    
 
             lastAttackTime = Time.time;
         }
@@ -32,7 +25,7 @@ public class RangerAttack : MonoBehaviour, IAttack
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        enemy = GetComponent<Enemy>();
     }
 
     // Update is called once per frame

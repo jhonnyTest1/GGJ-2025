@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -5,77 +6,70 @@ using UnityEngine.Rendering;
 
 public class RangerMove : MonoBehaviour
 {
-    [SerializeField] private Transform player;
     [SerializeField] private float attackRange = 6f;
     [SerializeField] private float fleeRange = 4f;
     [SerializeField] private float fleeDistance = 10f;
     [SerializeField] private float turnSpeed = 5f;
     [SerializeField] private float enemySpeed;
     [SerializeField] private float fleedSpeed;
+    private Coroutine detectionPlayer;
 
-    private NavMeshAgent agent;
-    private RangerAttack RangerAttack;
+    private Enemy enemy;
+    private IAttack rangerAttack;
 
     public bool isFleeing = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        RangerAttack = GetComponent<RangerAttack>();
+        enemy = GetComponent<Enemy>();
+        rangerAttack = GetComponent<IAttack>();
 
-        if (agent == null)
+        detectionPlayer = StartCoroutine(CheckPlayerPosition());
+
+        if (enemy == null)
         {
-            Debug.Log("No hay Nav Mesh Agent");
+            Debug.Log("No hay enemy");
         }
 
-        if (RangerAttack == null)
+        if (rangerAttack == null)
         {
-            Debug.Log("No hay rango de ataque");
+            Debug.Log("No hay script de ataque");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player == null) return;
+       
+        
+    }
+    private void ChasePlayer()
+    {
+        isFleeing = false;
+        enemy.Move(enemySpeed, enemy.player.position);
+        RotateTowardsPlayer();
+    }
 
-        float distancetoPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distancetoPlayer <= fleeRange)
-        {
-            if (!isFleeing)
-            {
-                isFleeing = true;
-                agent.speed = fleedSpeed;
-                FleeFromPlayer();
-            }
-        }
-
-        if (distancetoPlayer >= attackRange && distancetoPlayer >=fleeDistance) 
-        {
-            isFleeing =false;
-            agent.speed = enemySpeed;
-            agent.SetDestination(player.position);
-        }
-        if (distancetoPlayer <= attackRange && isFleeing == false)
-        {
-            agent.isStopped = true;
-            RangerAttack.Attack(10);
-        }
+    private void StopAndAttack()
+    {
+        isFleeing = false;
+        enemy.StopMoving();
+        RotateTowardsPlayer();  
+        rangerAttack.Attack(10); 
     }
 
     public void FleeFromPlayer()
     {
-        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        Vector3 directionAwayFromPlayer = (transform.position - enemy.player.position).normalized;
 
         Vector3 fleePosition = transform.position + directionAwayFromPlayer * fleeDistance;
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(fleePosition, out hit, 10f, NavMesh.AllAreas))
         {
-            agent.isStopped = false;
-            agent.SetDestination(hit.position);
+            enemy.Move(fleedSpeed, hit.position);
+            enemy.Move(fleedSpeed, hit.position);
         }
         else
         {
@@ -85,8 +79,37 @@ public class RangerMove : MonoBehaviour
 
     private void RotateTowardsPlayer()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (enemy.player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
+    }
+
+    IEnumerator CheckPlayerPosition()
+    {
+        while (true)
+        {
+
+            float distanceToPlayer = Vector3.Distance(transform.position, enemy.player.position);
+
+            if (distanceToPlayer <= fleeRange)
+            {
+                FleeFromPlayer();
+            }
+            else if (distanceToPlayer <= attackRange && !isFleeing)
+            {
+                StopAndAttack();
+            }
+            else
+            {
+                ChasePlayer();
+            }
+
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    private void OnDisable()
+    {
+        
     }
 }

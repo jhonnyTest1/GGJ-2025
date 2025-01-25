@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] int life;
     [SerializeField] NavMeshAgent agent;
+    public Transform player;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     public void Move(float speed, Vector3 direction)
     {
+        agent.isStopped = false;
         agent.speed = speed;
         agent.SetDestination(direction);
     }

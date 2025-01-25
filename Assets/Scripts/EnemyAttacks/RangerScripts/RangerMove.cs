@@ -66,6 +66,7 @@ public class RangerMove : MonoBehaviour
         Vector3 fleePosition = transform.position + directionAwayFromPlayer * fleeDistance;
 
         NavMeshHit hit;
+        rangerAttack.Attack(10);
         if (NavMesh.SamplePosition(fleePosition, out hit, 10f, NavMesh.AllAreas))
         {
             enemy.Move(fleedSpeed, hit.position);

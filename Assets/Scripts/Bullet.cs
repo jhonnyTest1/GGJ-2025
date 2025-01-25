@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class RangerAttack : MonoBehaviour, IAttack
+public class Bullet : MonoBehaviour
 {
-    public void Attack(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,5 +12,10 @@ public class RangerAttack : MonoBehaviour, IAttack
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        gameObject.SetActive(false);
     }
 }

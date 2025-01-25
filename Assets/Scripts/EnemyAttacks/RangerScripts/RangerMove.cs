@@ -38,12 +38,6 @@ public class RangerMove : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-        
-    }
     private void ChasePlayer()
     {
         isFleeing = false;
@@ -111,6 +105,9 @@ public class RangerMove : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        if (detectionPlayer != null)
+        {
+            StopCoroutine(detectionPlayer);
+        }
     }
 }

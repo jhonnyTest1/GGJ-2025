@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class RangerAttack : MonoBehaviour, IAttack
+public class NormalAttack : MonoBehaviour
 {
-    public void Attack(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

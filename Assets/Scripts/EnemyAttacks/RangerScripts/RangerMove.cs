@@ -19,14 +19,17 @@ public class RangerMove : MonoBehaviour
 
     public bool isFleeing = false;
 
+    private void OnEnable()
+    {
+        detectionPlayer = StartCoroutine(CheckPlayerPosition());
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         enemy = GetComponent<Enemy>();
         rangerAttack = GetComponent<IAttack>();
-
         detectionPlayer = StartCoroutine(CheckPlayerPosition());
-
         if (enemy == null)
         {
             Debug.Log("No hay enemy");

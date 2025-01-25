@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class NormalEnemyMove : MonoBehaviour
 {
     
-    [SerializeField] private float rotateSpeed;
     [SerializeField] private float enemySpeed;
     [SerializeField] private float turnSpeed;
 
@@ -22,12 +21,6 @@ public class NormalEnemyMove : MonoBehaviour
         detectionPlayer = StartCoroutine(CheckPlayerPosition());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void RotateTowardPlayer()
     {
         Vector3 direction = (enemy.player.position - transform.position).normalized;
@@ -42,7 +35,12 @@ public class NormalEnemyMove : MonoBehaviour
 
     IEnumerator CheckPlayerPosition()
     {
-        yield return new WaitForSeconds(0.3f);
+        while (true)
+        {
+            ChasePlayer();
+            RotateTowardPlayer();
+            yield return new WaitForSeconds(0.3f);
+        }
     }
     
 }

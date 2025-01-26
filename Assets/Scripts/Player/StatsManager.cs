@@ -4,22 +4,22 @@ using UnityEngine;
 public class StatsManager : MonoBehaviour, IStats
 {
     [SerializeField] int coins;
-    [SerializeField] Dictionary<string, float> stats = new();
-    [SerializeField] Dictionary<string, int> costs = new();
-    [SerializeField] Dictionary<string, float> increments = new();
-    [SerializeField] Dictionary<string, float> capsMax = new();
-    [SerializeField] Dictionary<string, float> capsMin = new();
+    Dictionary<string, float> stats = new();
+    Dictionary<string, int> costs = new();
+    Dictionary<string, float> increments = new();
+    public Dictionary<string, float> capsMax = new();
+    public Dictionary<string, float> capsMin = new();
 
     private void Start()
     {
         stats.Add("damage", 1);
         costs.Add("damage", 100);
-        increments.Add("damage", 1);
+        increments.Add("damage", 1.2f);
         capsMax.Add("damage", Mathf.Infinity);
 
         stats.Add("quantity", 1);
         costs.Add("quantity", 200);
-        increments.Add("quantity", 1);
+        increments.Add("quantity", 1.2f);
         capsMax.Add("quantity", 5);
 
         stats.Add("size", 1);
@@ -34,14 +34,13 @@ public class StatsManager : MonoBehaviour, IStats
 
         stats.Add("frecuency", 1);
         costs.Add("frecuency", 300);
-        increments.Add("frecuency", 0.1f);
+        increments.Add("frecuency", 1.2f);
         capsMin.Add("frecuency", 0.1f);
 
         stats.Add("life", 100);
         costs.Add("life", 50);
         increments.Add("life", 30);
         capsMax.Add("life", 100);
-
     }
 
     public int GetDamage()
@@ -69,6 +68,19 @@ public class StatsManager : MonoBehaviour, IStats
         return stats["frecuency"];
     }
 
+    public void SetCustomCap(string id, float cap)
+    {
+        if (capsMax.ContainsKey(id))
+            capsMax[id] = cap;
+        else if (capsMin.ContainsKey(id))
+            capsMin[id] = cap;
+    }
+
+    public void SetCustomProperty(string id, float value)
+    {
+        stats[id] = value;
+    }
+
     public int ChangeLife(int damage)
     {
         stats["life"] -= damage;
@@ -88,7 +100,7 @@ public class StatsManager : MonoBehaviour, IStats
                 }
                 Debug.Log(id + " antes era: " + stats[id]);
                 coins -= costs[id];
-                stats[id] += increments[id];
+                stats[id] *= increments[id];
                 Debug.Log(id + " ahora es: " + stats[id]);
             }
             else if (capsMin.ContainsKey(id))
@@ -100,7 +112,7 @@ public class StatsManager : MonoBehaviour, IStats
                 }
                 Debug.Log(id + " antes era: " + stats[id]);
                 coins -= costs[id];
-                stats[id] -= increments[id];
+                stats[id] *= -increments[id];
                 Debug.Log(id + " ahora es: " + stats[id]);
             }
         }

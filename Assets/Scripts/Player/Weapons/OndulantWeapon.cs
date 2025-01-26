@@ -19,7 +19,9 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
     {
         IStats istats = stats.GetComponent<IStats>();
         damage = istats.GetDamage();
+        istats.SetCustomProperty("speed", istats.GetSpeed() * 40);
         speed = istats.GetSpeed();
+        istats.SetCustomCap("speed", istats.GetSpeed() * 40);
         frecuency = istats.GetFrecuency() + 2;
         size = istats.GetSize();
         quantity = istats.GetQuantity();
@@ -37,7 +39,7 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
         while(duration < 5)
         {
             duration += Time.deltaTime;
-            transform.Rotate(Vector3.up * speed);
+            transform.Rotate(Vector3.up * speed * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
         for (int i = 0; i < quantity; i++)

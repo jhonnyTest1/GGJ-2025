@@ -11,4 +11,8 @@ public interface IStats
     public float GetFrecuency();
 
     public int ChangeLife(int damage);
+
+    public void SetCustomCap(string id, float cap);
+
+    public void SetCustomProperty(string id, float value);
 }

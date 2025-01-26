@@ -24,6 +24,9 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.TryGetComponent(out IPlayerAttack playerAttack))
+        {
             gameObject.SetActive(false);
+            other.GetComponent<IPlayerLife>().TakeDamage(10);
+        }
     }
 }

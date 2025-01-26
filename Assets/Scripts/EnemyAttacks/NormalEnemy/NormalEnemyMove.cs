@@ -11,6 +11,9 @@ public class NormalEnemyMove : MonoBehaviour
 
     private Coroutine detectionPlayer;
     private NavMeshAgent agent;
+    private float lastAttackTime;
+
+    public float cooldown;
 
     public Enemy enemy;
     private IPlayerAttack normalAttack;
@@ -20,6 +23,7 @@ public class NormalEnemyMove : MonoBehaviour
     private void OnEnable()
     {
         detectionPlayer = StartCoroutine(CheckPlayerPosition());
+        attack = GetComponent<IAttack>();
     }
     void Start()
     {
@@ -27,6 +31,11 @@ public class NormalEnemyMove : MonoBehaviour
         enemy = GetComponent<Enemy>();
         normalAttack = GetComponent<IPlayerAttack>();   
         detectionPlayer = StartCoroutine(CheckPlayerPosition());
+
+        if (attack == null)
+        {
+            Debug.Log("No hay Interface");
+        }
     }
 
     private void RotateTowardPlayer()
@@ -43,11 +52,10 @@ public class NormalEnemyMove : MonoBehaviour
 
     public void DistanceToPlayer() 
     {
-        distance = Vector3.Distance(transform.position, enemy.player.position);
+        distance = Vector3.Distance(transform.position, enemy.GetPlayer().position);
         if (distance < 5f)
         {
             attack.Attack(10);
-            Debug.Log("Se atacó");
         }
     }
 
@@ -62,5 +70,4 @@ public class NormalEnemyMove : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
     }
-    
 }

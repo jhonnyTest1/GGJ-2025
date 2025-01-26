@@ -1,48 +1,48 @@
 using System.Collections;
 using UnityEngine;
 
-public class NormalAttack : MonoBehaviour
+public class NormalAttack : MonoBehaviour, IAttack
 {
     [SerializeField] private float attackCooldown;
     [SerializeField] private float detectionRadius = 2f;
     [SerializeField] private float detectionInterval = 0.3f;
     [SerializeField] private LayerMask targetLayer;
-    private Coroutine CheckPlayer;
 
     private Enemy enemy;
     private float lastAttackTime;
 
     private void OnEnable()
     {
-        CheckPlayer = StartCoroutine(CheckforPlayer());
+        enemy = GetComponent<Enemy>();
     }
 
-    private void Start()
+    private void Awake()
     {
-        CheckPlayer = StartCoroutine(CheckforPlayer());
+        enemy = GetComponent<Enemy>();
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 
-    IEnumerator CheckforPlayer()
+    public void Attack(int damage)
     {
-        while (true)
+
+        if (Time.time - lastAttackTime >= attackCooldown)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, targetLayer);
             if (colliders.Length > 0)
             {
                 foreach (Collider collider in colliders)
                 {
-                    Debug.Log("Choco al jugador");
+                    enemy.GetPlayer().GetComponent<IPlayerLife>().TakeDamage(10);
                 }
             }
-            yield return new WaitForSeconds(0.3f);
+
+            lastAttackTime = Time.time; 
         }
-    }
-
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        
     }
 }
     

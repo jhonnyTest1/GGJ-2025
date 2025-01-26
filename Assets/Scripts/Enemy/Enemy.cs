@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        life++;
+        life = pool.enemiesLife;
         AssignVariables();
         coin.gameObject.SetActive(false);
         coin.transform.position = transform.position;

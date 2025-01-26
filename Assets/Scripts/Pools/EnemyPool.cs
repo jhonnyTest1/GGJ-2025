@@ -6,6 +6,7 @@ public class EnemyPool : MonoBehaviour
     [SerializeField] List<GameObject> pool = new();
     [SerializeField] List<Transform> spawnPoints = new();
     public int enemyCount = 1;
+    public int enemiesLife = 1;
 
     public void SpawnEnemies()
     {

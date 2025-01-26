@@ -24,6 +24,7 @@ public class GameCycle : MonoBehaviour
         }
         enemyPool.Spawn();
         enemyPool.enemyCount++;
+        enemyPool.enemiesLife++;
         StartCoroutine(CountDown());
     }
 

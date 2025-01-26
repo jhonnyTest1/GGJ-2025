@@ -41,6 +41,11 @@ public class StatsManager : MonoBehaviour, IStats
         costs.Add("life", 5);
         increments.Add("life", 30);
         capsMax.Add("life", 100);
+
+        stats.Add("weapons", 1);
+        costs.Add("weapons", 50);
+        increments.Add("weapons", 2);
+        capsMax.Add("weapons", 2);
     }
 
     public int GetDamage()
@@ -66,6 +71,11 @@ public class StatsManager : MonoBehaviour, IStats
     public float GetFrecuency()
     {
         return stats["frecuency"];
+    }
+
+    public int GetWeapons()
+    {
+        return (int)stats["weapons"];
     }
 
     public void AddCoins(int value)

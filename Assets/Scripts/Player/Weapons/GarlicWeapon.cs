@@ -34,6 +34,8 @@ public class GarlicWeapon : MonoBehaviour, IPlayerAttack
         frecuency = istats.GetFrecuency();
         size = istats.GetSize() * 4;
         quantity = istats.GetQuantity();
+        if (quantity > projectiles.Count)
+            quantity = projectiles.Count;
         for (int i = 0; i < quantity; i++)
         {
             projectiles[i].SetActive(true);
@@ -67,6 +69,7 @@ public class GarlicWeapon : MonoBehaviour, IPlayerAttack
 
     public void FinishBehaviour()
     {
+        if (frecuencyBucleCoroutine != null)
         StopCoroutine(frecuencyBucleCoroutine);
     }
 }

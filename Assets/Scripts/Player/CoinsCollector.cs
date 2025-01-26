@@ -8,7 +8,7 @@ public class CoinsCollector : MonoBehaviour
     {
         if (other.CompareTag("coin"))
         {
-
+            stats.GetComponent<IStats>().AddCoins(1);
             other.gameObject.SetActive(false);
         }
     }

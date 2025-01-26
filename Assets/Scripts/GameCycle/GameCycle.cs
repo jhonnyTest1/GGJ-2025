@@ -7,6 +7,7 @@ public class GameCycle : MonoBehaviour
     [SerializeField] GameObject storeMenu;
     [SerializeField] float stageTime;
     [SerializeField] List<GameObject> weapons;
+    [SerializeField] EnemyPool enemyPool;
 
     private void Start()
     {
@@ -20,6 +21,8 @@ public class GameCycle : MonoBehaviour
         {
             weapons[i].GetComponent<IPlayerAttack>().SetStats();
         }
+        enemyPool.Spawn();
+        enemyPool.enemyCount++;
         StartCoroutine(CountDown());
     }
 

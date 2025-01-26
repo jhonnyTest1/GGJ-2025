@@ -18,7 +18,7 @@ public class StatsManager : MonoBehaviour, IStats
         capsMax.Add("damage", Mathf.Infinity);
 
         stats.Add("quantity", 1);
-        costs.Add("quantity", 20);
+        costs.Add("quantity", 15);
         increments.Add("quantity", 1.2f);
         capsMax.Add("quantity", 5);
 
@@ -28,7 +28,7 @@ public class StatsManager : MonoBehaviour, IStats
         capsMax.Add("size", 2);
 
         stats.Add("speed", 5);
-        costs.Add("speed", 10);
+        costs.Add("speed", 5);
         increments.Add("speed", 1.2f);
         capsMax.Add("speed", 10);
 
@@ -66,6 +66,11 @@ public class StatsManager : MonoBehaviour, IStats
     public float GetFrecuency()
     {
         return stats["frecuency"];
+    }
+
+    public void AddCoins(int value)
+    {
+        coins += value;
     }
 
     public void SetCustomCap(string id, float cap)

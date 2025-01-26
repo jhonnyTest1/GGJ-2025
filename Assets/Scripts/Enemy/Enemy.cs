@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int life;
+    public int life;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] GameObject coin;
     private Transform player;
@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
+        life++;
         AssignVariables();
         coin.gameObject.SetActive(false);
         coin.transform.position = transform.position;

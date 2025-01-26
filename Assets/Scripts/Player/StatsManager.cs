@@ -43,7 +43,7 @@ public class StatsManager : MonoBehaviour, IStats
 
         stats.Add("life", 100);
         costs.Add("life", 5);
-        increments.Add("life", 30);
+        increments.Add("life", 30f);
         capsMax.Add("life", 100);
 
         stats.Add("weapons", 1);
@@ -108,6 +108,16 @@ public class StatsManager : MonoBehaviour, IStats
         return (int)stats["life"];
     }
 
+    public void Heal()
+    {
+        if (coins >= costs["life"])
+        {
+            coins -= costs["life"];
+            stats["life"] += increments["life"];
+            healthBar.value = stats["life"];
+        }
+    }
+
     public void BuyPowerUp(string id)
     {
         if (coins >= costs[id])
@@ -136,6 +146,7 @@ public class StatsManager : MonoBehaviour, IStats
                 stats[id] *= -increments[id];
                 Debug.Log(id + " ahora es: " + stats[id]);
             }
+            coinsText.text = "Monedas: " + coins;
         }
         else
         {

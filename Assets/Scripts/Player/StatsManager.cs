@@ -81,7 +81,7 @@ public class StatsManager : MonoBehaviour, IStats
             }
             else if (capsMin.ContainsKey(id))
             {
-                if (stats[id] >= capsMax[id])
+                if (stats[id] <= capsMin[id])
                 {
                     Debug.Log("alcanzaste el limite!");
                     return;
@@ -94,7 +94,7 @@ public class StatsManager : MonoBehaviour, IStats
         }
         else
         {
-            Debug.Log("you broke nigga");
+            Debug.Log("you broke cuh");
         }
     }
 }

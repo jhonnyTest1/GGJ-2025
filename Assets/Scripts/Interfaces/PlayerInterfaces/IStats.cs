@@ -10,6 +10,8 @@ public interface IStats
 
     public float GetFrecuency();
 
+    public int GetWeapons();
+
     public void AddCoins(int value);
 
     public int ChangeLife(int damage);

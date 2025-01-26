@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameCycle : MonoBehaviour
 {
     [SerializeField] GameObject storeMenu;
+    [SerializeField] GameObject stats;
     [SerializeField] float stageTime;
     [SerializeField] List<GameObject> weapons;
     [SerializeField] EnemyPool enemyPool;
@@ -17,7 +18,7 @@ public class GameCycle : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1;
-        for (int i = 0; i < weapons.Count; i++)
+        for (int i = 0; i < stats.GetComponent<IStats>().GetWeapons(); i++)
         {
             weapons[i].GetComponent<IPlayerAttack>().SetStats();
         }

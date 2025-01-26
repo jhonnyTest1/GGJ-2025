@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class PlayerLife : MonoBehaviour, IPlayerLife
 {
     [SerializeField] GameObject stats;
-    [SerializeField] GameObject menu;
 
     public void TakeDamage(int damage)
     {

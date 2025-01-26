@@ -54,6 +54,7 @@ public class NormalEnemyMove : MonoBehaviour
         distance = Vector3.Distance(transform.position, enemy.GetPlayer().position);
         if (distance <= minDistance)
         {
+           // enemy.GetPlayer().GetComponent<IPlayerLife>().TakeDamage(10);
             attack.Attack(10);
         }
     }

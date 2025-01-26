@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class StatsManager : MonoBehaviour, IStats
 {
     [SerializeField] int coins;
+    [SerializeField] Slider healthBar;
+    [SerializeField] TMP_Text coinsText;
     Dictionary<string, float> stats = new();
     Dictionary<string, int> costs = new();
     Dictionary<string, float> increments = new();
@@ -81,6 +85,7 @@ public class StatsManager : MonoBehaviour, IStats
     public void AddCoins(int value)
     {
         coins += value;
+        coinsText.text = "Monedas: " + coins;
     }
 
     public void SetCustomCap(string id, float cap)
@@ -99,6 +104,7 @@ public class StatsManager : MonoBehaviour, IStats
     public int ChangeLife(int damage)
     {
         stats["life"] -= damage;
+        healthBar.value = stats["life"];
         return (int)stats["life"];
     }
 

@@ -2748,6 +2748,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8491234796517743872, guid: e7ad0dd5caa5b62439a5f88cc7842ea7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491234796517743872, guid: e7ad0dd5caa5b62439a5f88cc7842ea7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8511859550066057932, guid: e7ad0dd5caa5b62439a5f88cc7842ea7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2782,6 +2790,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7176587199099527382, guid: e7ad0dd5caa5b62439a5f88cc7842ea7, type: 3}
   m_PrefabInstance: {fileID: 977968265}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &977968267 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7456169139888739047, guid: e7ad0dd5caa5b62439a5f88cc7842ea7, type: 3}
+  m_PrefabInstance: {fileID: 977968265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &977968268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3351411392106145537, guid: e7ad0dd5caa5b62439a5f88cc7842ea7, type: 3}
+  m_PrefabInstance: {fileID: 977968265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1026596293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 89ad71d768b36964b8b6c8c50daaa092, type: 3}
@@ -5947,6 +5977,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 0
+  healthBar: {fileID: 977968267}
+  coinsText: {fileID: 977968268}
 --- !u!4 &2099567204
 Transform:
   m_ObjectHideFlags: 0

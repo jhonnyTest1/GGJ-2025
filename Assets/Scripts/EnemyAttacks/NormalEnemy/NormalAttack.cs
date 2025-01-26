@@ -32,11 +32,15 @@ public class NormalAttack : MonoBehaviour, IAttack
         if (Time.time - lastAttackTime >= attackCooldown)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, targetLayer);
+            enemy.GetPlayer().GetComponent<IPlayerLife>().TakeDamage(10);
+            Debug.Log("attque");
             if (colliders.Length > 0)
             {
+
                 foreach (Collider collider in colliders)
                 {
                     enemy.GetPlayer().GetComponent<IPlayerLife>().TakeDamage(10);
+                    Debug.Log("attque");
                 }
             }
 

@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 1
-  detectionRadius: 3
+  detectionRadius: 2
   detectionInterval: 0.3
   targetLayer:
     serializedVersion: 2

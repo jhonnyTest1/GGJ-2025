@@ -14,19 +14,23 @@ public class RangerMove : MonoBehaviour
     [SerializeField] private float fleedSpeed;
     private Coroutine detectionPlayer;
 
-    private Enemy enemy;
+    public Enemy enemy;
     private IAttack rangerAttack;
 
     public bool isFleeing = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
         enemy = GetComponent<Enemy>();
         rangerAttack = GetComponent<IAttack>();
-
         detectionPlayer = StartCoroutine(CheckPlayerPosition());
+    }
 
+    void Awake()
+    {
+        enemy = GetComponent<Enemy>();
+        rangerAttack = GetComponent<IAttack>();
+        detectionPlayer = StartCoroutine(CheckPlayerPosition());
         if (enemy == null)
         {
             Debug.Log("No hay enemy");
@@ -38,16 +42,10 @@ public class RangerMove : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-        
-    }
     private void ChasePlayer()
     {
         isFleeing = false;
-        enemy.Move(enemySpeed, enemy.player.position);
+        enemy.Move(enemySpeed, enemy.GetPlayer().position);
         RotateTowardsPlayer();
     }
 
@@ -61,11 +59,12 @@ public class RangerMove : MonoBehaviour
 
     public void FleeFromPlayer()
     {
-        Vector3 directionAwayFromPlayer = (transform.position - enemy.player.position).normalized;
+        Vector3 directionAwayFromPlayer = (transform.position - enemy.GetPlayer().position).normalized;
 
         Vector3 fleePosition = transform.position + directionAwayFromPlayer * fleeDistance;
 
         NavMeshHit hit;
+        rangerAttack.Attack(10);
         if (NavMesh.SamplePosition(fleePosition, out hit, 10f, NavMesh.AllAreas))
         {
             enemy.Move(fleedSpeed, hit.position);
@@ -79,7 +78,7 @@ public class RangerMove : MonoBehaviour
 
     private void RotateTowardsPlayer()
     {
-        Vector3 direction = (enemy.player.position - transform.position).normalized;
+        Vector3 direction = (enemy.GetPlayer().position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
     }
@@ -88,8 +87,7 @@ public class RangerMove : MonoBehaviour
     {
         while (true)
         {
-
-            float distanceToPlayer = Vector3.Distance(transform.position, enemy.player.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, enemy.GetPlayer().position);
 
             if (distanceToPlayer <= fleeRange)
             {
@@ -110,6 +108,9 @@ public class RangerMove : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        if (detectionPlayer != null)
+        {
+            StopCoroutine(detectionPlayer);
+        }
     }
 }

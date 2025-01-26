@@ -36,6 +36,12 @@ public class StatsManager : MonoBehaviour, IStats
         costs.Add("frecuency", 300);
         increments.Add("frecuency", 0.1f);
         capsMin.Add("frecuency", 0.1f);
+
+        stats.Add("life", 100);
+        costs.Add("life", 50);
+        increments.Add("life", 30);
+        capsMax.Add("life", 100);
+
     }
 
     public int GetDamage()
@@ -61,6 +67,12 @@ public class StatsManager : MonoBehaviour, IStats
     public float GetFrecuency()
     {
         return stats["frecuency"];
+    }
+
+    public int ChangeLife(int damage)
+    {
+        stats["life"] -= damage;
+        return (int)stats["life"];
     }
 
     public void BuyPowerUp(string id)

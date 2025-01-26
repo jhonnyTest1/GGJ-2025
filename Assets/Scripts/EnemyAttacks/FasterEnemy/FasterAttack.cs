@@ -1,7 +1,12 @@
 using UnityEngine;
 
-public class FasterAttack : MonoBehaviour
+public class FasterAttack : MonoBehaviour, IAttack
 {
+    public void Attack(int damage)
+    {
+        //throw new System.NotImplementedException();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

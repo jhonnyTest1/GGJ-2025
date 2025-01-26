@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class NormalEnemyMove : MonoBehaviour
 {
@@ -8,9 +7,9 @@ public class NormalEnemyMove : MonoBehaviour
     [SerializeField] private float enemySpeed;
     [SerializeField] private float turnSpeed;
     [SerializeField] private float distance;
+    [SerializeField] private float minDistance;
 
     private Coroutine detectionPlayer;
-    private NavMeshAgent agent;
     private float lastAttackTime;
 
     public float cooldown;
@@ -53,7 +52,7 @@ public class NormalEnemyMove : MonoBehaviour
     public void DistanceToPlayer() 
     {
         distance = Vector3.Distance(transform.position, enemy.GetPlayer().position);
-        if (distance < 5f)
+        if (distance <= minDistance)
         {
             attack.Attack(10);
         }

@@ -145,6 +145,7 @@ MonoBehaviour:
   enemySpeed: 5
   turnSpeed: 4
   distance: 0
+  minDistance: 5
   cooldown: 2
   enemy: {fileID: 1465773184794615989}
 --- !u!195 &6630261691705722711

@@ -16,7 +16,7 @@ public class RangerAttack : MonoBehaviour, IAttack
         {
             GameObject projectile = BulletsPool.Instance.RequestBullet();
             projectile.transform.position = shootPoint.position;
-            Vector3 direction = transform.position - enemy.player.position;
+            Vector3 direction = transform.position - enemy.GetPlayer().position;
             projectile.transform.forward = -direction;    
 
             lastAttackTime = Time.time;

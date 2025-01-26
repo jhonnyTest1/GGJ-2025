@@ -1,4 +1,5 @@
 public interface IPlayerAttack
 {
-    public int Damage();
+    public void SetStats();
+    public void FinishBehaviour();
 }

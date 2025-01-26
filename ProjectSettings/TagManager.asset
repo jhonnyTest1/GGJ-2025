@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - EnemyPool
+  - coin
   layers:
   - Default
   - TransparentFX

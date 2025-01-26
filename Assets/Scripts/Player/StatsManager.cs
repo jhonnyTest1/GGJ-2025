@@ -32,7 +32,7 @@ public class StatsManager : MonoBehaviour, IStats
         increments.Add("speed", 1.2f);
         capsMax.Add("speed", 10);
 
-        stats.Add("frecuency", 0.5f);
+        stats.Add("frecuency", 1);
         costs.Add("frecuency", 300);
         increments.Add("frecuency", 0.1f);
         capsMin.Add("frecuency", 0.1f);

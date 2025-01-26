@@ -11,7 +11,7 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
     [SerializeField] int quantity;
     [SerializeField] List<GameObject> projectiles = new();
     [SerializeField] GameObject stats;
-    float duration = 0;
+    [SerializeField] float duration = 0;
     Coroutine rollingCoroutine;
 
     [ContextMenu("Set Stats")]
@@ -20,7 +20,7 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
         IStats istats = stats.GetComponent<IStats>();
         damage = istats.GetDamage();
         speed = istats.GetSpeed();
-        frecuency = istats.GetFrecuency();
+        frecuency = istats.GetFrecuency() + 2;
         size = istats.GetSize();
         quantity = istats.GetQuantity();
 
@@ -29,13 +29,14 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
 
     IEnumerator Rolling()
     {
+        duration = 0;
         for (int i = 0; i < quantity; i++)
         {
             projectiles[i].SetActive(true);
         }
         while(duration < 5)
         {
-            duration = Time.deltaTime;
+            duration += Time.deltaTime;
             transform.Rotate(Vector3.up * speed);
             yield return new WaitForFixedUpdate();
         }

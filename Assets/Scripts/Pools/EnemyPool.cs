@@ -5,7 +5,6 @@ public class EnemyPool : MonoBehaviour
 {
     [SerializeField] List<GameObject> pool = new();
     [SerializeField] List<Transform> spawnPoints = new();
-    [SerializeField] GameObject enemyPrefab;
     public int enemyCount = 1;
 
     public void SpawnEnemies()
@@ -20,7 +19,7 @@ public class EnemyPool : MonoBehaviour
     {
         if (pool[0].activeSelf)
         {
-            pool.Add(Instantiate(enemyPrefab, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity));
+            pool.Add(Instantiate(pool[Random.Range(0, pool.Count)], spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity));
         }
         else
         {

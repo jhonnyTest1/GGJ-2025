@@ -14,15 +14,29 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
     [SerializeField] float duration = 0;
     Coroutine rollingCoroutine;
 
-    [ContextMenu("Set Stats")]
-    public void SetStats()
+    private void Awake()
+    {
+        Invoke(nameof(StartStats), 0.5f);
+    }
+
+    void StartStats()
     {
         IStats istats = stats.GetComponent<IStats>();
         damage = istats.GetDamage();
         istats.SetCustomProperty("speed", istats.GetSpeed() * 40);
         speed = istats.GetSpeed();
-        istats.SetCustomCap("speed", istats.GetSpeed() * 40);
+        istats.SetCustomCap("speed", istats.GetSpeed() * 3);
         frecuency = istats.GetFrecuency() + 2;
+        size = istats.GetSize();
+        quantity = istats.GetQuantity();
+    }
+
+    public void SetStats()
+    {
+        IStats istats = stats.GetComponent<IStats>();
+        damage = istats.GetDamage();
+        speed = istats.GetSpeed();
+        frecuency = istats.GetFrecuency();
         size = istats.GetSize();
         quantity = istats.GetQuantity();
 
@@ -35,6 +49,7 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
         for (int i = 0; i < quantity; i++)
         {
             projectiles[i].SetActive(true);
+            projectiles[i].transform.localScale = new Vector3(size, size, size);
         }
         while(duration < 5)
         {
@@ -54,10 +69,9 @@ public class OndulantWeapon : MonoBehaviour, IPlayerAttack
     public void FinishBehaviour()
     {
         StopCoroutine(rollingCoroutine);
-    }
-
-    public int Damage()
-    {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < quantity; i++)
+        {
+            projectiles[i].SetActive(false);
+        }
     }
 }

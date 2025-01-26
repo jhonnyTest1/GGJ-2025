@@ -13,32 +13,32 @@ public class StatsManager : MonoBehaviour, IStats
     private void Start()
     {
         stats.Add("damage", 1);
-        costs.Add("damage", 100);
+        costs.Add("damage", 4);
         increments.Add("damage", 1.2f);
         capsMax.Add("damage", Mathf.Infinity);
 
         stats.Add("quantity", 1);
-        costs.Add("quantity", 200);
+        costs.Add("quantity", 20);
         increments.Add("quantity", 1.2f);
         capsMax.Add("quantity", 5);
 
         stats.Add("size", 1);
-        costs.Add("size", 150);
+        costs.Add("size", 15);
         increments.Add("size", 1.2f);
-        capsMax.Add("size", 3);
+        capsMax.Add("size", 2);
 
         stats.Add("speed", 5);
-        costs.Add("speed", 100);
+        costs.Add("speed", 10);
         increments.Add("speed", 1.2f);
         capsMax.Add("speed", 10);
 
         stats.Add("frecuency", 1);
-        costs.Add("frecuency", 300);
+        costs.Add("frecuency", 30);
         increments.Add("frecuency", 1.2f);
         capsMin.Add("frecuency", 0.1f);
 
         stats.Add("life", 100);
-        costs.Add("life", 50);
+        costs.Add("life", 5);
         increments.Add("life", 30);
         capsMax.Add("life", 100);
     }

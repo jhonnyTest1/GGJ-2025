@@ -37,9 +37,9 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out IPlayerAttack playerAttack))
+        if (other.TryGetComponent(out IPlayerProjectile playerProjectile))
         {
-            TakeDamage(playerAttack.Damage());
+            TakeDamage(playerProjectile.Damage());
         }
     }
     [ContextMenu("Suicide")]

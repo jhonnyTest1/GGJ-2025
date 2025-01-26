@@ -23,14 +23,14 @@ public class NormalEnemyMove : MonoBehaviour
 
     private void RotateTowardPlayer()
     {
-        Vector3 direction = (enemy.player.position - transform.position).normalized;
+        Vector3 direction = (enemy.GetPlayer().position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
     }
 
     private void ChasePlayer()
     {
-        enemy.Move(enemySpeed, enemy.player.position);
+        enemy.Move(enemySpeed, enemy.GetPlayer().position);
     }
 
     IEnumerator CheckPlayerPosition()

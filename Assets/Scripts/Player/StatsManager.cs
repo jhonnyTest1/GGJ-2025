@@ -20,17 +20,17 @@ public class StatsManager : MonoBehaviour, IStats
         stats.Add("quantity", 1);
         costs.Add("quantity", 200);
         increments.Add("quantity", 1);
-        capsMax.Add("quantity", 10);
+        capsMax.Add("quantity", 5);
 
         stats.Add("size", 1);
         costs.Add("size", 150);
         increments.Add("size", 1.2f);
         capsMax.Add("size", 3);
 
-        stats.Add("speed", 1);
+        stats.Add("speed", 5);
         costs.Add("speed", 100);
         increments.Add("speed", 1.2f);
-        capsMax.Add("speed", 3);
+        capsMax.Add("speed", 10);
 
         stats.Add("frecuency", 0.5f);
         costs.Add("frecuency", 300);
